@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A portfolio of my achievements, projects, and growth from 7th grade through senior year." />
+  <meta name="theme-color" content="#f8f7ff" />
+  <title>Your Name | My Achievement Journey</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202138;
+      --muted: #65677b;
+      --purple: #6d51d9;
+      --purple-dark: #5238bd;
+      --purple-soft: #f0edff;
+      --paper: #fff;
+      --background: #faf9ff;
+      --line: #e8e5f2;
+      --shadow: 0 14px 36px rgb(52 39 116 / 7%);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--background);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .container { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      border-bottom: 1px solid rgb(232 229 242 / 80%);
+      background: rgb(250 249 255 / 90%);
+      backdrop-filter: blur(14px);
+    }
+    nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo { color: var(--purple); font-weight: 850; letter-spacing: -.04em; text-decoration: none; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 22px; }
+    .nav-links a { color: var(--muted); font-size: .93rem; text-decoration: none; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--purple); }
+
+    .hero { padding: 82px 0 68px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--purple);
+      background: var(--purple-soft);
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 820px;
+      margin: 19px auto 16px;
+      font-size: clamp(2.7rem, 8vw, 5.3rem);
+      line-height: 1.02;
+      letter-spacing: -.075em;
+    }
+    h1 span { color: var(--purple); }
+    .hero-copy { max-width: 640px; margin: 0 auto 26px; color: var(--muted); font-size: 1.1rem; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .16s ease, background .16s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { color: white; background: var(--purple); }
+    .button.primary:hover { background: var(--purple-dark); }
+    .button.secondary { border-color: var(--line); background: white; }
+
+    section { padding: 55px 0; }
+    .section-heading { margin: 0 auto 30px; text-align: center; }
+    .section-heading h2 { margin: 0 0 5px; font-size: clamp(1.9rem, 5vw, 2.8rem); letter-spacing: -.055em; }
+    .section-heading p { margin: 0; color: var(--muted); }
+
+    .timeline { position: relative; max-width: 780px; margin: 0 auto; }
+    .timeline::before { position: absolute; top: 12px; bottom: 12px; left: 17px; width: 2px; background: var(--line); content: ""; }
+    .year { position: relative; margin-bottom: 26px; padding-left: 56px; }
+    .year::before {
+      position: absolute; top: 7px; left: 7px; width: 22px; height: 22px;
+      border: 5px solid var(--background); border-radius: 50%; background: var(--purple);
+      box-shadow: 0 0 0 1px var(--line); content: "";
+    }
+    .year h3 { margin: 0 0 12px; color: var(--purple); font-size: 1.25rem; }
+    .achievement {
+      margin-bottom: 11px; padding: 18px 20px; border: 1px solid var(--line);
+      border-radius: 15px; background: var(--paper); box-shadow: var(--shadow);
+    }
+    .achievement h4 { margin: 0 0 5px; font-size: 1.02rem; }
+    .achievement p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .tag {
+      display: inline-block; margin-top: 10px; padding: 4px 9px; border-radius: 999px;
+      color: var(--purple-dark); background: var(--purple-soft); font-size: .75rem; font-weight: 750;
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .card {
+      padding: 23px; border: 1px solid var(--line); border-radius: 16px;
+      background: var(--paper); box-shadow: var(--shadow);
+    }
+    .card-icon {
+      display: grid; width: 45px; height: 45px; margin-bottom: 12px;
+      place-items: center; border-radius: 13px; color: var(--purple);
+      background: var(--purple-soft); font-size: 1.25rem; font-weight: 800;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 18px; }
+    .about-copy, .values {
+      padding: 25px; border: 1px solid var(--line); border-radius: 17px;
+      background: var(--paper); box-shadow: var(--shadow);
+    }
+    .about-copy h3, .values h3 { margin: 0 0 9px; font-size: 1.35rem; letter-spacing: -.03em; }
+    .about-copy p { margin: 0 0 12px; color: var(--muted); }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .values { color: white; background: linear-gradient(140deg, #765ee4, #5238bd); }
+    .values ul { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+    .values li { padding: 7px 10px; border-radius: 9px; background: rgb(255 255 255 / 12%); }
+
+    footer { padding: 30px 0 45px; color: var(--muted); text-align: center; font-size: .9rem; }
+    :focus-visible { outline: 3px solid #aa9af5; outline-offset: 3px; }
+
+    @media (max-width: 720px) {
+      nav { flex-direction: column; justify-content: center; padding: 13px 0; }
+      .nav-links { justify-content: center; gap: 10px 18px; }
+      .hero { padding-top: 62px; }
+      .cards, .about-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a class="logo" href="#home">Your Name</a>
+        <div class="nav-links">
+          <a href="#journey">My Journey</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#about">About Me</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <span class="eyebrow">7th Grade to Senior Year</span>
+        <h1>A journey of <span>growth</span> and achievement</h1>
+        <p class="hero-copy">A collection of the moments, accomplishments, and lessons that have shaped me through middle school and high school.</p>
+        <div class="actions">
+          <a class="button primary" href="#journey">Explore my journey</a>
+          <a class="button secondary" href="#about">A little about me</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <div class="section-heading">
+          <h2>My achievement timeline</h2>
+          <p>Replace these examples with your own achievements and memories.</p>
+        </div>
+        <div class="timeline">
+          <article class="year">
+            <h3>7th Grade</h3>
+            <div class="achievement"><h4>My first big project</h4><p>Add a project, award, or accomplishment you’re proud of.</p><span class="tag">Academics</span></div>
+          </article>
+          <article class="year">
+            <h3>8th Grade</h3>
+            <div class="achievement"><h4>A new challenge</h4><p>Share something you tried, learned, or improved this year.</p><span class="tag">Growth</span></div>
+          </article>
+          <article class="year">
+            <h3>9th Grade</h3>
+            <div class="achievement"><h4>Starting high school</h4><p>Add a high school milestone, club, activity, or memorable success.</p><span class="tag">Milestone</span></div>
+          </article>
+          <article class="year">
+            <h3>10th Grade</h3>
+            <div class="achievement"><h4>Taking initiative</h4><p>Describe a time you took responsibility or helped a team succeed.</p><span class="tag">Leadership</span></div>
+          </article>
+          <article class="year">
+            <h3>11th Grade</h3>
+            <div class="achievement"><h4>Working toward a goal</h4><p>Showcase an achievement, competition, project, or personal goal.</p><span class="tag">Achievement</span></div>
+          </article>
+          <article class="year">
+            <h3>12th Grade · Senior Year</h3>
+            <div class="achievement"><h4>A milestone to remember</h4><p>Celebrate a senior-year accomplishment and the progress behind it.</p><span class="tag">Senior Year</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <div class="container">
+        <div class="section-heading">
+          <h2>What matters to me</h2>
+          <p>The qualities and interests that connect my experiences.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon" aria-hidden="true">A</div><h3>Learning</h3><p>I’m curious and enjoy building skills, taking on challenges, and discovering new ideas.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">T</div><h3>Teamwork</h3><p>I value listening, sharing ideas, and working with others toward a common goal.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">G</div><h3>Growth</h3><p>I’m proud of the effort and persistence that helped me keep improving year after year.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <h2>About me</h2>
+          <p>A little context behind the achievements.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <h3>My story so far</h3>
+            <p>I’ve changed and grown a lot since 7th grade. Each year has brought new experiences, challenges, and opportunities to learn more about what I enjoy and what I can accomplish.</p>
+            <p>This portfolio is a snapshot of that journey. I’ll keep adding the achievements and memories that mean the most to me.</p>
+          </div>
+          <aside class="values">
+            <h3>Things I value</h3>
+            <ul><li>Curiosity</li><li>Hard work</li><li>Creativity</li><li>Helping others</li></ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">Made by Your Name · A work in progress</div></footer>
+</body>
+</html>
