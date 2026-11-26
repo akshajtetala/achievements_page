@@ -8,8 +8,7 @@
     var currentKey = null;
     var currentCount = 0;
 
-    // Preloaded photos. Paths are relative to this HTML file.
-    // Add more entries here for other awards as you send them.
+    // Paths are relative to the HTML file.
     var photos = {
       'tsa-states-2025': [
         'photos/tsa-states-1.jpg',
@@ -68,11 +67,20 @@
       var slots = slotsEl.querySelectorAll('.slot');
       slots.forEach(function (slot, i) {
         var img = slot.querySelector('img');
+        var empty = slot.querySelector('.slot-empty');
         if (list[i]) {
+          img.onerror = function () {
+            slot.classList.remove('filled');
+            empty.textContent = 'Not found: ' + list[i];
+          };
+          img.onload = function () {
+            empty.textContent = '';
+          };
           img.src = list[i];
           slot.classList.add('filled');
         } else {
           img.removeAttribute('src');
+          empty.textContent = '+ Add photo ' + (i + 1);
           slot.classList.remove('filled');
         }
       });
