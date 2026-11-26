@@ -35,12 +35,11 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
     a { color: inherit; }
     .container { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
 
-    /* Netflix-style intro */
+    /* Intro overlay */
     .intro {
       position: fixed;
       inset: 0;
@@ -48,61 +47,38 @@
       display: grid;
       place-items: center;
       background: radial-gradient(circle at center, #2a54d4 0%, #0b1a44 70%);
-      pointer-events: none;
-      animation: introOut .6s ease 2.6s forwards;
+      transition: opacity .6s ease, visibility .6s ease;
     }
-    .intro-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .intro.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; }
     .monogram {
       color: #ffffff;
-      font-size: clamp(5rem, 16vw, 9rem);
+      font-size: clamp(4.5rem, 14vw, 8rem);
       font-weight: 900;
       letter-spacing: -.06em;
       line-height: 1;
-      text-shadow: 0 0 40px rgb(96 165 250 / 70%);
-      animation: monoIn 1s cubic-bezier(.2, .8, .2, 1) .2s backwards;
-    }
-    .intro-line {
-      height: 3px;
-      width: 0;
-      border-radius: 3px;
-      background: linear-gradient(90deg, transparent, #93c5fd, transparent);
-      animation: lineGrow .8s ease .9s forwards;
+      text-shadow: 0 0 40px rgb(96 165 250 / 60%);
+      animation: monoIn .9s ease both;
     }
     .intro-sub {
       color: #bfdbfe;
-      font-size: .9rem;
+      font-size: .85rem;
       font-weight: 700;
-      letter-spacing: .4em;
+      letter-spacing: .35em;
       text-transform: uppercase;
-      opacity: 0;
-      animation: fadeIn .7s ease 1.4s forwards;
+      animation: fadeIn .8s ease .5s both;
     }
     @keyframes monoIn {
-      0% { opacity: 0; transform: scale(.4); filter: blur(12px); }
-      100% { opacity: 1; transform: scale(1); filter: blur(0); }
-    }
-    @keyframes lineGrow {
-      from { width: 0; opacity: 0; }
-      to { width: 260px; opacity: 1; }
-    }
-    @keyframes introOut {
-      to { opacity: 0; visibility: hidden; }
+      from { opacity: 0; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1); }
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes growLineV {
-      from { transform: scaleY(0); }
-      to { transform: scaleY(1); }
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(.6); }
-      to { opacity: 1; transform: scale(1); }
     }
 
     /* Header */
@@ -111,10 +87,9 @@
       z-index: 10;
       top: 0;
       border-bottom: 1px solid rgb(219 230 247 / 70%);
-      background: rgb(245 249 255 / 80%);
+      background: rgb(245 249 255 / 85%);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      animation: fadeIn .6s ease 2.4s backwards;
     }
     nav {
       min-height: 72px;
@@ -143,7 +118,7 @@
     .nav-links a:hover, .nav-links a:focus-visible { color: var(--blue); background: var(--blue-soft); }
 
     /* Hero */
-    .hero { padding: 90px 0 70px; text-align: center; }
+    .hero { padding: 90px 0 70px; text-align: center; animation: fadeUp .6s ease 1.5s both; }
     .eyebrow {
       display: inline-block;
       padding: 7px 14px;
@@ -155,7 +130,6 @@
       font-weight: 750;
       letter-spacing: .08em;
       text-transform: uppercase;
-      animation: fadeUp .6s ease 2.6s backwards;
     }
     h1 {
       max-width: 860px;
@@ -163,7 +137,6 @@
       font-size: clamp(2.8rem, 8vw, 5.6rem);
       line-height: 1;
       letter-spacing: -.07em;
-      animation: fadeUp .7s ease 2.7s backwards;
     }
     h1 .accent {
       background: linear-gradient(120deg, var(--blue), var(--blue-light));
@@ -171,6 +144,264 @@
       background-clip: text;
       color: transparent;
     }
-    .hero-copy {
-      max-width: 620px; margin: 0 auto 30px; color: var(--muted); font-size: 1.12rem;
-      animation: fadeUp .7s ease
+    .hero-copy { max-width: 620px; margin: 0 auto 30px; color: var(--muted); font-size: 1.12rem; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .button {
+      display: inline-block;
+      padding: 13px 22px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary {
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      box-shadow: 0 10px 24px rgb(37 99 235 / 30%);
+    }
+    .button.primary:hover { box-shadow: 0 14px 30px rgb(37 99 235 / 40%); }
+    .button.secondary { border-color: var(--line); color: var(--ink); background: var(--paper); }
+    .button.secondary:hover { border-color: #a9c6f5; }
+
+    /* Sections */
+    section { padding: 60px 0; }
+    .section-heading { margin: 0 auto 38px; text-align: center; }
+    .section-heading h2 { margin: 0 0 6px; font-size: clamp(2rem, 5vw, 2.9rem); letter-spacing: -.05em; }
+    .section-heading p { margin: 0; color: var(--muted); }
+
+    /* Timeline */
+    .timeline { position: relative; max-width: 780px; margin: 0 auto; }
+    .timeline::before {
+      position: absolute; top: 14px; bottom: 14px; left: 17px; width: 2px;
+      background: linear-gradient(var(--blue-light), var(--line));
+      content: "";
+    }
+    .year { position: relative; margin-bottom: 34px; padding-left: 58px; }
+    .year::before {
+      position: absolute; top: 4px; left: 4px; width: 28px; height: 28px;
+      border: 5px solid var(--background); border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 1px #bfd6fb, 0 4px 12px rgb(37 99 235 / 30%);
+      content: "";
+    }
+    .year h3 {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .achievement {
+      margin-bottom: 12px; padding: 20px 22px; border: 1px solid var(--line);
+      border-radius: 16px; background: var(--paper); box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .achievement:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .achievement h4 { margin: 0 0 6px; font-size: 1.05rem; letter-spacing: -.01em; }
+    .achievement p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .achievement.pending { border-style: dashed; border-color: #b9cfef; background: transparent; box-shadow: none; }
+    .achievement.pending h4 { color: var(--muted); font-weight: 600; }
+    .tag {
+      display: inline-block; margin-top: 12px; padding: 4px 10px; border-radius: 999px;
+      color: var(--blue-dark); background: var(--blue-soft); font-size: .74rem; font-weight: 750;
+    }
+
+    /* Highlights */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 26px; border: 1px solid var(--line); border-radius: 18px;
+      background: var(--paper); box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .card-icon {
+      display: grid; width: 48px; height: 48px; margin-bottom: 16px;
+      place-items: center; border-radius: 14px; color: white; font-size: 1.2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      box-shadow: 0 8px 18px rgb(37 99 235 / 25%);
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 20px; }
+    .about-copy, .values {
+      padding: 30px; border: 1px solid var(--line); border-radius: 20px;
+      background: var(--paper); box-shadow: var(--shadow);
+    }
+    .about-copy h3, .values h3 { margin: 0 0 12px; font-size: 1.4rem; letter-spacing: -.03em; }
+    .about-copy p { margin: 0 0 14px; color: var(--muted); }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .values {
+      color: white;
+      background: linear-gradient(145deg, #3b82f6, #1e3fae);
+      border: none;
+      box-shadow: 0 16px 36px rgb(30 64 175 / 30%);
+    }
+    .values ul { display: grid; gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
+    .values li {
+      padding: 9px 14px; border-radius: 10px;
+      background: rgb(255 255 255 / 14%); font-weight: 600; font-size: .95rem;
+    }
+
+    footer {
+      padding: 36px 0 50px; color: var(--muted);
+      text-align: center; font-size: .9rem; border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+
+    :focus-visible { outline: 3px solid var(--blue-light); outline-offset: 3px; }
+
+    @media (max-width: 720px) {
+      nav { flex-direction: column; justify-content: center; padding: 14px 0; }
+      .nav-links { justify-content: center; }
+      .hero { padding-top: 64px; }
+      .cards, .about-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-inner">
+      <div class="monogram">AT</div>
+      <div class="intro-sub">Achievement Journey</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a class="logo" href="#home">Akshaj Tetala</a>
+        <div class="nav-links">
+          <a href="#journey">My Journey</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#about">About Me</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <span class="eyebrow">8th Grade to Senior Year</span>
+        <h1>My journey of <span class="accent">growth</span> and achievement</h1>
+        <p class="hero-copy">A collection of the moments, accomplishments, and lessons that have shaped me through middle school and high school.</p>
+        <div class="actions">
+          <a class="button primary" href="#journey">Explore my journey</a>
+          <a class="button secondary" href="#about">A little about me</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <div class="section-heading">
+          <h2>My achievement timeline</h2>
+          <p>Milestones and memories from my school years.</p>
+        </div>
+        <div class="timeline">
+          <article class="year">
+            <h3>8th Grade</h3>
+            <div class="achievement">
+              <h4>11th Place — TSA Nationals, Video Game Design</h4>
+              <p>Placed 11th at TSA Nationals in the Video Game Design competition.</p>
+              <span class="tag">Technology · Competition</span>
+            </div>
+            <div class="achievement">
+              <h4>3rd Place — TSA State Conference, Video Game Design</h4>
+              <p>Placed 3rd at the state level in the Video Game Design competition.</p>
+              <span class="tag">Technology · Competition</span>
+            </div>
+          </article>
+
+          <article class="year">
+            <h3>9th Grade</h3>
+            <div class="achievement">
+              <h4>2026 Veritas AI Hackathon Distinction Award</h4>
+              <p>Earned the Distinction Award at the 2026 Veritas AI Hackathon.</p>
+              <span class="tag">Technology · Hackathon</span>
+            </div>
+            <div class="achievement">
+              <h4>1st Place — 804 Hacks</h4>
+              <p>Won first place at 804 Hacks.</p>
+              <span class="tag">Technology · Hackathon</span>
+            </div>
+          </article>
+
+          <article class="year">
+            <h3>10th Grade</h3>
+            <div class="achievement pending"><h4>In Progress...</h4></div>
+          </article>
+
+          <article class="year">
+            <h3>11th Grade</h3>
+            <div class="achievement pending"><h4>In Progress...</h4></div>
+          </article>
+
+          <article class="year">
+            <h3>12th Grade · Senior Year</h3>
+            <div class="achievement pending"><h4>In Progress...</h4></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <div class="container">
+        <div class="section-heading">
+          <h2>What matters to me</h2>
+          <p>The qualities and interests that connect my experiences.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="card-icon" aria-hidden="true">A</div><h3>Learning</h3><p>I’m curious and enjoy building skills, taking on challenges, and discovering new ideas.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">T</div><h3>Teamwork</h3><p>I value listening, sharing ideas, and working with others toward a common goal.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">G</div><h3>Growth</h3><p>I’m proud of the effort and persistence that help me keep improving year after year.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <h2>About me</h2>
+          <p>A little context behind the achievements.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <h3>My story so far</h3>
+            <p>I’m Akshaj Tetala. Each school year brings new experiences, challenges, and opportunities to learn more about what I enjoy and what I can accomplish.</p>
+            <p>This portfolio is a snapshot of my journey. I’ll keep adding the achievements and memories that mean the most to me.</p>
+          </div>
+          <aside class="values">
+            <h3>Things I value</h3>
+            <ul><li>Curiosity</li><li>Hard work</li><li>Creativity</li><li>Helping others</li></ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">Made by Akshaj Tetala · A work in progress</div></footer>
+
+  <script>
+    setTimeout(function () {
+      var intro = document.getElementById('intro');
+      if (intro) {
+        intro.classList.add('done');
+        setTimeout(function () { intro.remove(); }, 700);
+      }
+    }, 1500);
+  </script>
+</body>
+</html>
